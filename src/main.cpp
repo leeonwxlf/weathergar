@@ -105,6 +105,7 @@ void reconnect() {
       Serial.println("connected");
       digitalWrite(Led, HIGH);
       mqtt_client.subscribe("/triggertor");
+      mqtt_client.publish("/Status/IP", WiFi.localIP().toString().c_str(), true);
 
     } else {
       Serial.print("failed, rc= ");
