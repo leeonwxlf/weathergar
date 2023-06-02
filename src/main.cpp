@@ -203,6 +203,8 @@ void loop() {
   mqtt_client.loop();
 
   if (millis() - ABTimer > 300000) {  // alle 5 minuten
+    client.publish("/Status", str2ch("ONLINE"), true);
+
     ABTimer = millis();
     data_Ma();
     data_Mb();
