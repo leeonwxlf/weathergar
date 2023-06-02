@@ -206,7 +206,6 @@ void loop() {
   if (millis() - nowc > 3600000) {  // jede Stunde
     nowc = millis();
     data_Mc();
-    mqtt_client.subscribe("/triggertor");
   }
 
   // Status auszulesen
