@@ -44,9 +44,6 @@ float tempC_I;
 float humi_I;
 float humi_A;
 
-long now = millis();
-long nowc = millis();
-
 // Anfangswert der Variablen
 int torzu_ = 1;
 int torauf_ = 1;
@@ -186,6 +183,8 @@ void setup() {
   data_Mc();
 }
 
+uint32_t ABTimer, CTimer;
+
 void loop() {
   if (!mqtt_client.connected()) {
     digitalWrite(Led, LOW);
@@ -199,14 +198,14 @@ void loop() {
 
   mqtt_client.loop();
 
-  if (millis() - now > 300000) {  // alle 5 minuten
-    now = millis();
+  if (millis() - ABTimer > 300000) {  // alle 5 minuten
+    ABTimer = millis();
     data_Ma();
     data_Mb();
   }
 
-  if (millis() - nowc > 3600000) {  // jede Stunde
-    nowc = millis();
+  if (millis() - CTimer > 3600000) {  // jede Stunde
+    CTimer = millis();
     data_Mc();
   }
 
