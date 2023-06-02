@@ -98,17 +98,18 @@ void callback(char* topic, byte* message, unsigned int Lenght) {
 }
 
 void reconnect() {
-  while (!mqtt_client.connected()) {
+  if (WiFi.status() == WL_CONNECTED && !Wclient.connected()) {
     Serial.print("Attempting MQTT connection... ");
 
     if (mqtt_client.connect("ESP8266Client1")) {
       Serial.println("connected");
       digitalWrite(Led, HIGH);
+      mqtt_client.subscribe("/triggertor");
+
     } else {
       Serial.print("failed, rc= ");
       Serial.print(mqtt_client.state());
       Serial.println(" try again in 5 seconds");
-      delay(5000);
     }
   }
 }
