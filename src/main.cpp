@@ -33,7 +33,7 @@ Adafruit_BMP085 bmp;
 // const char* ssid = "Christian-Simone-2.4G"; //Außen
 // const char* ssid = "Christian-Simone-d"; //Keller
 const char* ssid = "Christian-Simone-G";  // Garage
-const char* password = "Internetio22";
+const char* password = "XXX";
 const char* mqtt_server = "192.168.1.159";
 
 WiFiClient Wclient;
