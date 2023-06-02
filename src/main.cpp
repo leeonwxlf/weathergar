@@ -49,6 +49,9 @@ int torzu_ = 1;
 int torauf_ = 1;
 
 void setup_WIFI() {
+  if (WiFi.status() == WL_CONNECTED) return;
+
+  digitalWrite(Led, LOW);
   Serial.print("Connecting to ");
   Serial.println(ssid);
   WiFi.mode(WIFI_STA);
@@ -191,9 +194,9 @@ void loop() {
     reconnect();
   }
 
-  if (WiFi.status() != WL_CONNECTED) {
-    digitalWrite(Led, LOW);
+  if (millis() - wifiConnectTimer > 10000) {
     setup_WIFI();
+    wifiConnectTimer = millis();
   }
 
   mqtt_client.loop();
