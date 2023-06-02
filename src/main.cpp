@@ -88,7 +88,7 @@ void callback(char* topic, byte* message, unsigned int Lenght) {
       // Wenn die Nachricht angekommen ist dann soll der Pin angesteuert Werden
       digitalWrite(relay, HIGH);
       delay(200);
-      mqtt_client.publish("/triggertor", "triggeroff");  // Rückmeldung dass trigger angekommen ist.
+      mqtt_client.publish("/triggertor", "triggeroff", true);  // Rückmeldung dass trigger angekommen ist.
       digitalWrite(relay, LOW);                          // Rücksetzung des Pins
     } else if (messageTemp.startsWith("triggeroff")) {
       digitalWrite(relay, LOW);
@@ -122,10 +122,10 @@ void data_Ma() {
     Serial.println("Failed to read from DHT sensor! a");
   } else {
     Serial.println(String(humi_A).c_str());
-    mqtt_client.publish("/hum/außen/gar", String(humi_A).c_str());
+    mqtt_client.publish("/hum/außen/gar", String(humi_A).c_str(), true);
   }
   Serial.println(String(bmp.readTemperature()).c_str());
-  mqtt_client.publish("/temp/außen/gar", String(bmp.readTemperature()).c_str());
+  mqtt_client.publish("/temp/außen/gar", String(bmp.readTemperature()).c_str(), true);
 
   Serial.println("Data Send_a");
 }
@@ -140,8 +140,8 @@ void data_Mb() {
     Serial.println(String(humi_I).c_str());
     Serial.println(String(tempC_I).c_str());
 
-    mqtt_client.publish("/hum/innen/gar", String(humi_I).c_str());
-    mqtt_client.publish("/temp/innen/gar", String(tempC_I).c_str());
+    mqtt_client.publish("/hum/innen/gar", String(humi_I).c_str(), true);
+    mqtt_client.publish("/temp/innen/gar", String(tempC_I).c_str(), true);
   }
   Serial.println("Data Send_b");
 }
@@ -152,7 +152,7 @@ void data_Mc() {
   wert = bmp.readSealevelPressure(LOCAL_ALTITUDE);  // dieser Wert wird benötigt
 
   Serial.println(String(wert).c_str());
-  mqtt_client.publish("/pres/außen/gar/s", String(wert).c_str());
+  mqtt_client.publish("/pres/außen/gar/s", String(wert).c_str(), true);
 
   Serial.println("Data Send_c");
 }
@@ -217,9 +217,9 @@ void loop() {
     torzu_ = digitalRead(torzu);
     Serial.println(torzu_);
     if (torzu_ == 1) {
-      mqtt_client.publish("/torstatus", "Öffnen..");
+      mqtt_client.publish("/torstatus", "Öffnen..", true);
     } else {
-      mqtt_client.publish("/torstatus", "Geschlossen");
+      mqtt_client.publish("/torstatus", "Geschlossen", true);
     }
   }
 
@@ -227,9 +227,9 @@ void loop() {
     torauf_ = digitalRead(torauf);
     Serial.println(torauf_);
     if (torauf_ == 1) {
-      mqtt_client.publish("/torstatus", "Schließen..");
+      mqtt_client.publish("/torstatus", "Schließen..", true);
     } else {
-      mqtt_client.publish("/torstatus", "Geöffnet");
+      mqtt_client.publish("/torstatus", "Geöffnet", true);
     }
   }
 }
