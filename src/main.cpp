@@ -102,7 +102,7 @@ void reconnect() {
   if (WiFi.status() == WL_CONNECTED && !Wclient.connected()) {
     Serial.print("Attempting MQTT connection... ");
 
-    if (mqtt_client.connect("ESP8266Client1")) {
+    if (mqtt_client.connect("ESP8266Client1", "/Status", 0, true, "OFFLINE")) {
       Serial.println("connected");
       digitalWrite(Led, HIGH);
       mqtt_client.subscribe("/triggertor");
