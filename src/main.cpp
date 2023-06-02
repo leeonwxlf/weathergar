@@ -73,7 +73,7 @@ void callback(String topic, byte* message, unsigned int Lenght) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
-  String messageTemp;
+  String messageTemp = "";
 
   for (int i = 0; i < Lenght; i++) {
     Serial.print((char)message[i]);
