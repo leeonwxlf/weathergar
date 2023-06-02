@@ -88,8 +88,9 @@ void callback(char* topic, byte* message, unsigned int Lenght) {
       // Wenn die Nachricht angekommen ist dann soll der Pin angesteuert Werden
       digitalWrite(relay, HIGH);
       delay(200);
-      mqtt_client.publish("/triggertor", "triggeroff", true);  // Rückmeldung dass trigger angekommen ist.
-      digitalWrite(relay, LOW);                          // Rücksetzung des Pins
+      // Rückmeldung dass trigger angekommen ist.
+      mqtt_client.publish("/triggertor", "triggeroff", true);
+      digitalWrite(relay, LOW);  // Rücksetzung des Pins
     } else if (messageTemp.startsWith("triggeroff")) {
       digitalWrite(relay, LOW);
     }
