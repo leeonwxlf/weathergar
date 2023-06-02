@@ -189,9 +189,9 @@ void setup() {
 uint32_t ABTimer, CTimer;
 
 void loop() {
-  if (!mqtt_client.connected()) {
-    digitalWrite(Led, LOW);
+  if (millis() - mqttConnectTimer > 5000) {
     reconnect();
+    mqttConnectTimer = millis();
   }
 
   if (millis() - wifiConnectTimer > 10000) {
