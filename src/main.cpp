@@ -168,8 +168,6 @@ void setup() {
   setup_WIFI();
   if (!bmp.begin()) {
     Serial.println("Could not find a valid BMP085/BMP180 sensor, check wiring!");
-    while (1) {
-    }
   }
   dht_A_sensor.begin();
   dht_I_sensor.begin();
