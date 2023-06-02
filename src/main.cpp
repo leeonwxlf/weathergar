@@ -69,7 +69,7 @@ void setup_WIFI() {
   digitalWrite(Led, HIGH);
 }
 
-void callback(String topic, byte* message, unsigned int Lenght) {
+void callback(char* topic, byte* message, unsigned int Lenght) {
   Serial.print("Message arrived on topic: ");
   Serial.print(topic);
   Serial.print(". Message: ");
@@ -81,14 +81,16 @@ void callback(String topic, byte* message, unsigned int Lenght) {
   }
   Serial.println();
 
-  if (String(topic) == "/triggertor") {
-    if (messageTemp == "triggeron") {
-      digitalWrite(relay,
-                   HIGH);  // Wenn die Nachricht angekommen ist dann soll der Pin angesteuert Werden
+  String topicStr = String(topic);
+
+  if (topicStr.startsWith("/triggertor")) {
+    if (messageTemp.startsWith("triggeron")) {
+      // Wenn die Nachricht angekommen ist dann soll der Pin angesteuert Werden
+      digitalWrite(relay, HIGH);
       delay(200);
       mqtt_client.publish("/triggertor", "triggeroff");  // Rückmeldung dass trigger angekommen ist.
       digitalWrite(relay, LOW);                          // Rücksetzung des Pins
-    } else if (messageTemp == "triggeroff") {
+    } else if (messageTemp.startsWith("triggeroff")) {
       digitalWrite(relay, LOW);
     }
   }
