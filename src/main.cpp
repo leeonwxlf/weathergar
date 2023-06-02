@@ -34,7 +34,7 @@ Adafruit_BMP085 bmp;
 //const char* ssid = "Christian-Simone-2.4G"; //Außen
 //const char* ssid = "Christian-Simone-d"; //Keller
 const char* ssid = "Christian-Simone-G"; //Garage
-const char* password = "Internetio22";
+const char* password = "XXX";
 const char* mqtt_server = "192.168.1.159";
 
 WiFiClient Wclient;
@@ -89,7 +89,7 @@ if(String(topic) == "/triggertor"){
     delay(200);
     mqtt_client.publish("/triggertor", "triggeroff"); // Rückmeldung dass trigger angekommen ist.
     digitalWrite(relay, LOW); // Rücksetzung des Pins
-    mqtt_client.unsubscribe("/triggertor")
+    mqtt_client.unsubscribe("/triggertor");
     mqtt_client.subscribe("/triggertor");
      }
   else if(messageTemp == "triggeroff"){ digitalWrite(relay, LOW); }
@@ -193,7 +193,7 @@ void loop() {
   if(!mqtt_client.connected()){
   digitalWrite(Led, LOW);
   reconnect();
-    mqtt_client.unsubscribe("/triggertor")
+    mqtt_client.unsubscribe("/triggertor");
     mqtt_client.subscribe("/triggertor");
   }
 
@@ -201,7 +201,7 @@ void loop() {
   {
     digitalWrite(Led, LOW);
     setup_WIFI();
-    mqtt_client.unsubscribe("/triggertor")
+    mqtt_client.unsubscribe("/triggertor");
     mqtt_client.subscribe("/triggertor");
   }
   
@@ -216,7 +216,7 @@ void loop() {
   if(millis() - nowc > 3600000){ // jede Stunde
     nowc = millis();
     data_Mc();
-    mqtt_client.unsubscribe("/triggertor")
+    mqtt_client.unsubscribe("/triggertor");
     mqtt_client.subscribe("/triggertor");
   }
 
