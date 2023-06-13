@@ -188,6 +188,7 @@ void setup() {
 }
 
 uint32_t ABTimer, CTimer;
+uint32_t mqttConnectTimer, wifiConnectTimer;
 
 void loop() {
   if (millis() - mqttConnectTimer > 5000) {
@@ -203,7 +204,7 @@ void loop() {
   mqtt_client.loop();
 
   if (millis() - ABTimer > 300000) {  // alle 5 minuten
-    client.publish("/Status", str2ch("ONLINE"), true);
+    mqtt_client.publish("/Status", "ONLINE", true);
 
     ABTimer = millis();
     data_Ma();
