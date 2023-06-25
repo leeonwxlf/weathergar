@@ -23,7 +23,7 @@ DHT dht_I_sensor(DHT_I_SENSOR_PIN, DHT_SENSOR_TYPE);
 #define torauf 25  // Pin auf dem Strom fließ wenn Tor nicht offen ist
 //------------------------------------------------------------------------> NC Endschalter
 
-#define LOCAL_ALTITUDE (1070.0F)
+#define LOCAL_ALTITUDE (1060.0F)
 
 #define I2C_SDA 21  // bmp180
 #define I2C_SCL 22  // bmp180
@@ -136,7 +136,7 @@ void data_Mb() {
   tempC_I = dht_I_sensor.readTemperature();
 
   if (isnan(tempC_I) || isnan(humi_I)) {
-    Serial.println("Failed to read from DHT sensor!");
+    Serial.println("Failed to read from DHT sensor! i");
   } else {
     Serial.println(String(humi_I).c_str());
     Serial.println(String(tempC_I).c_str());
