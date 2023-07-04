@@ -41,6 +41,7 @@ PubSubClient mqtt_client(Wclient);
 
 // Wertte Variablen
 float tempC_I;
+float tempC_A;
 float humi_I;
 float humi_A;
 
@@ -118,15 +119,18 @@ void reconnect() {
 
 void data_Ma() {
   humi_A = dht_A_sensor.readHumidity();
+  tempC_A = dht_A_sensor.readTemperature();
 
-  if (isnan(humi_A)) {
+  if (isnan(tempC_A) || isnan(humi_A)) {
     Serial.println("Failed to read from DHT sensor! a");
   } else {
     Serial.println(String(humi_A).c_str());
     mqtt_client.publish("/hum/außen/gar", String(humi_A).c_str(), true);
   }
-  Serial.println(String(bmp.readTemperature()).c_str());
-  mqtt_client.publish("/temp/außen/gar", String(bmp.readTemperature()).c_str(), true);
+  Serial.println(String(tempC_A).c_str());
+
+  mqtt_client.publish("/temp/außen/gar/w", String(bmp.readTemperature()).c_str(), true);
+  mqtt_client.publish("/temp/außen/gar", String(tempC_A).c_str(), true);
 
   Serial.println("Data Send_a");
 }
